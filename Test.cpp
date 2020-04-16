@@ -163,7 +163,7 @@ TEST_CASE("test remove") {
     CHECK(T.relation("dvora") == string("unrelated"));
     CHECK(T.relation("litman") == string("unrelated"));
 
-    CHECK_THROWS(T.find("great-great-grandfather");
+    CHECK_THROWS(T.find("great-great-grandfather"));
 
     //initToStart(T);
 }
