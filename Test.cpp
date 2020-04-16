@@ -5,23 +5,23 @@ using namespace family;
 
 static Tree T ("shoham");
 
-T.addMother("shoham","ziv")
-.addFather("shoham","dael")
-.addMother("dael","nomy")
-.addFather("dael","ben ziyon")
-.addMother("nomy","hana")
-.addFather("nomy","shaol")
-.addMother("shaol","regina")
-.addMother("ben ziyon","bat sheva")
-.addFather("ben ziyon","arye")
-.addMother("bat sheva","sheli")
-.addFather("bat sheva","david")
-.addMother("arye","dvora")
-.addFather("arye","litman")
-.addMother("ziv","hila")
-.addFather("ziv","nir")
-.addMother("nir","shula")
-.addFather("nir","shlomo");
+// T.addMother("shoham","ziv")
+// .addFather("shoham","dael")
+// .addMother("dael","nomy")
+// .addFather("dael","ben ziyon")
+// .addMother("nomy","hana")
+// .addFather("nomy","shaol")
+// .addMother("shaol","regina")
+// .addMother("ben ziyon","bat sheva")
+// .addFather("ben ziyon","arye")
+// .addMother("bat sheva","sheli")
+// .addFather("bat sheva","david")
+// .addMother("arye","dvora")
+// .addFather("arye","litman")
+// .addMother("ziv","hila")
+// .addFather("ziv","nir")
+// .addMother("nir","shula")
+// .addFather("nir","shlomo");
 
 
 TEST_CASE("init tree") {
@@ -165,7 +165,7 @@ TEST_CASE("test remove") {
 
     CHECK_THROWS(T.find("great-great-grandfather");
 
-    initToStart(T);
+    //initToStart(T);
 }
 
 TEST_CASE("empty string") {
@@ -185,13 +185,13 @@ TEST_CASE("empty string") {
 
 }
 
-void initToStart (Tree T) {
-    T.addFather("dael","ben ziyon")
-    .addMother("ben ziyon","bat sheva")
-    .addFather("ben ziyon","arye")
-    .addMother("bat sheva","sheli")
-    .addFather("bat sheva","david")
-    .addMother("arye","dvora")
-    .addFather("arye","litman");
-}
+// void initToStart (Tree tree) {
+//     tree.addFather("dael","ben ziyon")
+//     .addMother("ben ziyon","bat sheva")
+//     .addFather("ben ziyon","arye")
+//     .addMother("bat sheva","sheli")
+//     .addFather("bat sheva","david")
+//     .addMother("arye","dvora")
+//     .addFather("arye","litman");
+// }
 
