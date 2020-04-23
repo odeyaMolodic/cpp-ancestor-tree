@@ -51,7 +51,7 @@ string Tree::relation (string name) {
     int count = 0;
     string rela = "";
     string relation[] = {"", "grand", "great-grand"};
-    while (leaf != this) {
+    while (leaf != root) {
         count++;
         leaf = leaf->kid;
     }
