@@ -10,10 +10,17 @@ public:
 
     node* father;
 
+    node* kid;
+
     node (string name) {
         this->name = name;
         this->mother = NULL;
         this->father = NULL;
+    }
+
+    ~node() {
+        delete father;
+        delete mother;
     }
 };
 
@@ -27,6 +34,10 @@ namespace family {
     public:
         Tree (string name) {
             this->root = new node(name);
+        }
+
+        ~Tree() {
+            delete root;
         }
 
         Tree& addFather (string childName, string fatherName);

@@ -3,13 +3,77 @@ using namespace family;
 
 node* search(string name, node* n) {
     if(n != NULL) {
-        if(n->name.compare(name) == 0) {
+        if(n->name == name) {
             return n;
         }
         search(name, n->mother);
         search(name, n->father);
     }
     return NULL;
+}
+
+Tree& Tree::addFather (string childName, string fatherName) {
+    node* n = search(childName, root);
+    if (n == NULL) {
+        throw runtime_error("that name doesn't exist");
+    } else if (n->father != NULL) {
+        throw runtime_error(childName+" already has a father");
+    } else {
+        n->father = new node(fatherName);
+        n->father->kid = n;
+    }
+    return *this;
+}
+
+Tree& Tree::addMother (string childName, string motherName) {
+    node* n = search(childName, root);
+    if (n == NULL) {
+        throw runtime_error("that name doesn't exist");
+    } else if (n->mother != NULL) {
+        throw runtime_error(childName+" already has a mother");
+    } else {
+        n->mother = new node(motherName);
+        n->mother->kid = n;
+    }
+    return *this;
+}
+
+
+string Tree::relation (string name) {
+    node* leaf = search(name, root);
+    node* ans = leaf;
+    if(leaf == NULL) {
+        return "unrelated";
+    }
+    if(leaf == root) {
+        return "me";
+    }
+    int count = 0;
+    string rela = "";
+    string relation[] = {"", "grand", "great-grand"};
+    while (leaf != this) {
+        count++;
+        leaf = leaf->kid;
+    }
+    while(count>3) {
+        rela+="great-";
+        count--;
+    }
+    ans = ans->kid;
+    if(ans->father != NULL && ans->father->name.compare(name) == 0) {
+        rela+=relation[count-1];
+        return rela+="father";
+    }
+    else if(ans->mother != NULL && ans->mother->name.compare(name) == 0) {
+        rela+=relation[count-1];
+        return rela+="mother";
+    }
+    return NULL;
+}
+
+string Tree::find (string name) {
+
+    return "";
 }
 
 void printBT(const string& prefix, const node* node, bool isLeft) {
@@ -25,6 +89,10 @@ void printBT(const string& prefix, const node* node, bool isLeft) {
     }
 }
 
+void Tree::display () {
+    printBT("", root, false);
+}
+
 void delete_tree(node* n) {
     if(n != NULL) {
         delete_tree(n->mother);
@@ -33,51 +101,13 @@ void delete_tree(node* n) {
     }
 }
 
-Tree& Tree::addFather (string childName, string fatherName) {
-    node* n = search(childName, root);
-    if (n == NULL) {
-        throw runtime_error("that name doesn't exist");
-    } else if (n->father != NULL) {
-        throw runtime_error(childName+" already has a father");
-    } else {
-        n->father = new node(fatherName);
-    }
-    return *this;
-}
-
-Tree& Tree::addMother (string childName, string motherName) {
-    node* n = search(childName, root);
-    if (n == NULL) {
-        throw runtime_error("that name doesn't exist");
-    } else if (n->mother != NULL) {
-        throw runtime_error(childName+" already has a mother");
-    } else {
-        n->mother = new node(motherName);
-    }
-    return *this;
-}
-
-
-string Tree::relation (string name) {
-
-    return "";
-}
-
-string Tree::find (string name) {
-
-    return "";
-}
-
-void Tree::display () {
-    printBT("", root, false);
-}
-
 void Tree::remove (string name) {
+    if(name == root->name) {
+        throw runtime_error("You can't delete the root");
+    }
     node* n = search(name, root);
     if(n == NULL) {
         throw runtime_error("that name doesn't exist");
-    } else if(n->name.compare(root->name) == 0) {
-        throw runtime_error("You can't delete the root");
     } else {
         delete_tree(n);
     }
