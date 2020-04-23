@@ -1,6 +1,38 @@
 #include "FamilyTree.hpp"
 using namespace family;
 
+node* search(string name, node* n) {
+    if(n != NULL) {
+        if(n->name.compare(name) == 0) {
+            return n;
+        }
+        search(name, n->mother);
+        search(name, n->father);
+    }
+    return NULL;
+}
+
+void printBT(const string& prefix, const node* node, bool isLeft) {
+    if(node != NULL) {
+        cout << prefix;
+
+        cout << (isLeft ? "├──" : "└──" );
+
+        cout << node->name << endl;
+
+        printBT(prefix + (isLeft ? "│   " : "    "), node->mother, true);
+        printBT(prefix + (isLeft ? "│   " : "    "), node->father, false);
+    }
+}
+
+void delete_tree(node* n) {
+    if(n != NULL) {
+        delete_tree(n->mother);
+        delete_tree(n->father);
+        delete n;
+    }
+}
+
 Tree& Tree::addFather (string childName, string fatherName) {
     node* n = search(childName, root);
     if (n == NULL) {
@@ -48,37 +80,5 @@ void Tree::remove (string name) {
         throw runtime_error("You can't delete the root");
     } else {
         delete_tree(n);
-    }
-}
-
-node* search(string name, node* n) {
-    if(n != NULL) {
-        if(n->name.compare(name) == 0) {
-            return n;
-        }
-        search(name, n->mother);
-        search(name, n->father);
-    }
-    return NULL;
-}
-
-void printBT(const string& prefix, const node* node, bool isLeft) {
-    if(node != NULL) {
-        cout << prefix;
-
-        cout << (isLeft ? "├──" : "└──" );
-
-        cout << node->name << endl;
-
-        printBT(prefix + (isLeft ? "│   " : "    "), node->mother, true);
-        printBT(prefix + (isLeft ? "│   " : "    "), node->father, false);
-    }
-}
-
-void delete_tree(node* n) {
-    if(n != NULL) {
-        delete_tree(n->mother);
-        delete_tree(n->father);
-        delete n;
     }
 }
