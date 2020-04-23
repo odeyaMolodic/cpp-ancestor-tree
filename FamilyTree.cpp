@@ -2,16 +2,16 @@
 using namespace family;
 
 node* search(string name, node* n) {
-    if(n != NULL) {
+    if(n == NULL) {
         return NULL;
     }
     if(n->name == name) {
         return n;
     }
-    node* treeMother = search(name, n->mother);
-    node* treeFather = search(name, n->father);
-    if(treeFather != NULL) return treeFather;
-    if(treeMother != NULL) return treeMother;
+    // node* treeMother = search(name, n->mother);
+    // node* treeFather = search(name, n->father);
+    // if(treeFather != NULL) return treeFather;
+    // if(treeMother != NULL) return treeMother;
     return NULL;
     
 }
