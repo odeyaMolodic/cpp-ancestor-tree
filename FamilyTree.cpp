@@ -2,18 +2,35 @@
 using namespace family;
 
 node* search(string name, node* n) {
-    if(n == NULL) {
-        return NULL;
-    }
-    if(n->name == name) {
-        return n;
-    }
+    // if(n == NULL) {
+    //     return NULL;
+    // }
+    // if(n->name == name) {
+    //     return n;
+    // }
     // node* treeMother = search(name, n->mother);
     // node* treeFather = search(name, n->father);
     // if(treeFather != NULL) return treeFather;
     // if(treeMother != NULL) return treeMother;
-    return NULL;
+    // return NULL;
     
+
+    if (n->name == name) {
+       return n;
+    }
+    if (n->father != NULL) {
+        node *ans = search(name, start->father);
+        if (ans != NULL){
+            return ans;
+        }
+    }
+    if (n->mother != NULL){
+        node *ans = search(name, start->mother);
+        if (ans != NULL){
+            return ans;
+        }
+    }
+    return NULL;
 }
 
 Tree& Tree::addFather (string childName, string fatherName) {
