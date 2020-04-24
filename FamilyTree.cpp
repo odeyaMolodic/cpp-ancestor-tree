@@ -91,9 +91,63 @@ string Tree::relation (string name) {
     return NULL;
 }
 
-string Tree::find (string name) {
+string Find(Person* root,string name) {
+
+    if(root == NULL){
+        return "";
+    }
+
+    if((int)name.find('-') == -1){
+
+        if((int)name.find("father") != -1 && root->father){
+            return root->father->name;
+        }
+        if((int)name.find("mother") != -1 && root->mother){
+            return root->mother->name;
+        }
+        else
+            return "";
+    }
+
+    int index = name.find('-');
+    index++;
+    int len = name.length();
+
+    if(Find(root->father,name.substr(index,len)) != ""){
+        return Find(root->father,name.substr(index,len));
+    } else if(Find(root->mother,name.substr(index,len)) != "" ){
+        return Find(root->mother,name.substr(index,len));
+    }
 
     return "";
+}
+
+string Tree::find (string name) {
+    if (name == "me")
+        return this->root->name;
+    else if (name == "father"){
+        if(this->root->father)
+            return this->root->father->name;
+        else throw runtime_error(name + " isn't there");
+    }
+    else if(name == "mother"){
+        if(this->root->mother)
+            return this->root->mother->name;
+        else throw runtime_error(name + " isn't there");
+    }
+
+    string f_side, m_side;
+    if (this->root->father){
+        f_side = Find(this->root->father, name);
+        if (f_side != "")
+            return f_side;
+    }
+    if (this->root->mother){
+        m_side = Find(this->root->mother, name);
+        if (m_side != "")
+            return m_side;
+    }
+    throw runtime_error("Couldn't find it in the tree");
 }
 
 void printBT(const string& prefix, const node* node, bool isLeft) {
