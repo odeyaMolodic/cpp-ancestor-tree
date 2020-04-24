@@ -13,19 +13,18 @@ node* search(string name, node* n) {
     // if(treeFather != NULL) return treeFather;
     // if(treeMother != NULL) return treeMother;
     // return NULL;
-    
 
     if (n->name == name) {
        return n;
     }
     if (n->father != NULL) {
-        node *ans = search(name, start->father);
+        node *ans = search(name, n->father);
         if (ans != NULL){
             return ans;
         }
     }
     if (n->mother != NULL){
-        node *ans = search(name, start->mother);
+        node *ans = search(name, n->mother);
         if (ans != NULL){
             return ans;
         }
