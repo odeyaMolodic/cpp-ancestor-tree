@@ -94,7 +94,7 @@ string Tree::relation (string name) {
 string Find(node* root,string name) {
 
     if(root == NULL){
-        return "";
+        return "null";
     }
 
     if((int)name.find('-') == -1){
@@ -106,20 +106,20 @@ string Find(node* root,string name) {
             return root->mother->name;
         }
         else
-            return "";
+            return "null";
     }
 
     int index = name.find('-');
     index++;
     int len = name.length();
 
-    if(Find(root->father,name.substr(index,len)) != ""){
+    if(Find(root->father,name.substr(index,len)) != "null"){
         return Find(root->father,name.substr(index,len));
-    } else if(Find(root->mother,name.substr(index,len)) != "" ){
+    } else if(Find(root->mother,name.substr(index,len)) != "null" ){
         return Find(root->mother,name.substr(index,len));
     }
 
-    return "";
+    return "null";
 }
 
 string Tree::find (string name) {
@@ -139,12 +139,12 @@ string Tree::find (string name) {
     string f_side, m_side;
     if (this->root->father){
         f_side = Find(this->root->father, name);
-        if (f_side != "")
+        if (f_side != "null")
             return f_side;
     }
     if (this->root->mother){
         m_side = Find(this->root->mother, name);
-        if (m_side != "")
+        if (m_side != "null")
             return m_side;
     }
     throw runtime_error("Couldn't find it in the tree");
