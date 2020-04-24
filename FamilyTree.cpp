@@ -91,7 +91,7 @@ string Tree::relation (string name) {
     return NULL;
 }
 
-string Find(Person* root,string name) {
+string Find(node* root,string name) {
 
     if(root == NULL){
         return "";
