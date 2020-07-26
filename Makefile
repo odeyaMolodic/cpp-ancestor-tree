@@ -7,8 +7,11 @@ HEADERS := $(wildcard *.h*)
 STUDENT_SOURCES := $(filter-out $(wildcard Test*.cpp), $(wildcard *.cpp))
 STUDENT_OBJECTS := $(subst .cpp,.o,$(STUDENT_SOURCES))
 
-run: test
+run: demo
 	./$^
+
+demo: Demo.o $(STUDENT_OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o demo
 
 test: TestRunner.o Test_ariel.o Test_hila.o $(STUDENT_OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o test
@@ -17,4 +20,4 @@ test: TestRunner.o Test_ariel.o Test_hila.o $(STUDENT_OBJECTS)
 	$(CXX) $(CXXFLAGS) --compile $< -o $@
 
 clean:
-	rm -f *.o test
+	rm -f *.o demo test

@@ -150,6 +150,7 @@ string Tree::find (string name) {
     throw runtime_error("Couldn't find it in the tree");
 }
 
+// https://stackoverflow.com/questions/36802354/print-binary-tree-in-a-pretty-way-using-c/36810117
 void printBT(const string& prefix, const node* node, bool isLeft) {
     if(node != NULL) {
         cout << prefix;
@@ -167,14 +168,6 @@ void Tree::display () {
     printBT("", root, false);
 }
 
-void delete_tree(node* n) {
-    if(n != NULL) {
-        delete_tree(n->mother);
-        delete_tree(n->father);
-        delete n;
-    }
-}
-
 void Tree::remove (string name) {
     if(name == root->name) {
         throw runtime_error("You can't delete the root");
@@ -183,6 +176,18 @@ void Tree::remove (string name) {
     if(n == NULL) {
         throw runtime_error("that name doesn't exist");
     } else {
-        delete_tree(n);
+        node* temp = n->kid;
+            if(temp != NULL)
+            {
+                if(temp->father != NULL && temp->father->name == name)
+                {
+                    temp->father=NULL;
+                }
+                else if (temp->mother != NULL && temp->mother->name == name)
+                {
+                    temp->mother=NULL;
+                }
+                delete n;
+            }
     }
 }
